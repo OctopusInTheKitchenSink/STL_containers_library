@@ -21,10 +21,10 @@ class set : public Common_s_m<T> {
   size_type nodes_counter{0};
 
  public:
-  set() : tree(new Red_black_tree<T>()), nodes_counter(0){};
+  set() : tree(new Red_black_tree<T>()), nodes_counter(0) {};
 
   set(std::initializer_list<value_type> const &items) {
-    tree = new Red_black_tree<T>();  
+    tree = new Red_black_tree<T>();
     for (const_reference item : items) {
       auto res = tree->insert_node(item);
       if (res.second) nodes_counter++;
@@ -32,7 +32,7 @@ class set : public Common_s_m<T> {
   };
 
   set(const set &s) {
-    tree = new Red_black_tree<T>();  
+    tree = new Red_black_tree<T>();
     nodes_counter = 0;
     if (!s.empty()) {
       tree->add_tree(*(s.tree));
@@ -49,7 +49,7 @@ class set : public Common_s_m<T> {
 
   ~set() {
     if (tree) {
-      delete tree;  
+      delete tree;
     }
   };
 
@@ -67,7 +67,7 @@ class set : public Common_s_m<T> {
   set &operator=(set &&s) {
     if (this != &s && s.tree) {
       if (tree) {
-        delete tree;  
+        delete tree;
       }
       tree = s.tree;
       s.tree = nullptr;
@@ -111,11 +111,10 @@ class set : public Common_s_m<T> {
 
   virtual void erase(iterator pos) override {
     if (empty()) {
-      throw std::out_of_range("Дерево пустое");  
+      throw std::out_of_range("Дерево пустое");
     }
     if (!pos.get_curr())
-      throw std::logic_error(
-          "You try to erase empty position");  
+      throw std::logic_error("You try to erase empty position");
     if (tree->remove(pos)) nodes_counter--;
   };
 

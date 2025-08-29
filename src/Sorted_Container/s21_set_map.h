@@ -23,4 +23,3 @@ class Common_s_m : public container<T> {
 };  // namespace s21
 
 #endif
-

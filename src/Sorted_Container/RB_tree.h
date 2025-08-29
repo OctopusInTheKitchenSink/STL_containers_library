@@ -33,7 +33,7 @@ class Red_black_tree {
     Node *prev{nullptr};
     Color color{red};
     Node(T data, Node *prev = nullptr, Color col = red)
-        : data(data), prev(prev), color(col){};
+        : data(data), prev(prev), color(col) {};
     ~Node() = default;
   };
   Node *root{nullptr};
@@ -57,7 +57,7 @@ class Red_black_tree {
     Node *current{nullptr};
 
    public:
-    Map_iterator(Node *p = nullptr) : current(p){};
+    Map_iterator(Node *p = nullptr) : current(p) {};
 
     Node *get_curr() const { return current; };
 
@@ -133,7 +133,7 @@ class Red_black_tree {
     const Node *current{nullptr};
 
    public:
-    Iterator(const Node *p = nullptr) : current(p){};
+    Iterator(const Node *p = nullptr) : current(p) {};
 
     const Node *get_curr() const { return current; };
 
@@ -576,7 +576,7 @@ class Red_black_tree {
   void del_node_with_one_child(
       Node *tmp,
       bool flag = true) {  // родитель точно черный, ребенок точно красный
-    if (tmp->left) {  // только левый потомок (черный с красным потомком)
+    if (tmp->left) {       // только левый потомок (черный с красным потомком)
       Side side = flag ? get_node_type(tmp) : reverse_node_side(tmp);
       if (side == right) {  // удаляемый узел правый
         (tmp->prev)->right = tmp->left;
@@ -689,4 +689,3 @@ class Red_black_tree {
 };
 };  // namespace s21
 #endif
-

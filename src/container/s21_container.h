@@ -21,4 +21,3 @@ class container {
 };  // namespace s21
 
 #endif
-

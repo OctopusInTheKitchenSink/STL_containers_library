@@ -21,7 +21,7 @@ class multiset : public Common_s_m<T> {
   size_type nodes_counter{0};
 
  public:
-  multiset() : tree(new Red_black_tree<T>){};
+  multiset() : tree(new Red_black_tree<T>) {};
 
   multiset(std::initializer_list<value_type> const &items) {
     tree = new Red_black_tree<T>;
@@ -107,8 +107,7 @@ class multiset : public Common_s_m<T> {
       throw std::out_of_range("The tree is empty");
     }
     if (!pos.get_curr())
-      throw std::logic_error(
-          "You try to erase empty position");
+      throw std::logic_error("You try to erase empty position");
     if (tree->remove(pos, multiset_)) nodes_counter--;
   };
 
@@ -159,4 +158,3 @@ class multiset : public Common_s_m<T> {
 };  // namespace s21
 
 #endif
-

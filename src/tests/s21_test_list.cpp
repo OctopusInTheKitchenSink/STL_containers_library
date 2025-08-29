@@ -6,470 +6,474 @@
 
 #include "../Sequence_Containers/list/s21_list.h"
 
-TEST(list, constructor){
-    s21::list<int> a;
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_THROW(a.pop_front(), std::out_of_range);
-    EXPECT_THROW(a.pop_back(), std::out_of_range);
+TEST(list, constructor) {
+  s21::list<int> a;
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_THROW(a.pop_front(), std::out_of_range);
+  EXPECT_THROW(a.pop_back(), std::out_of_range);
 };
 
-TEST(list, constructor_with_size){
-    s21::list<int> a(5);
-    EXPECT_EQ(a.empty(), false);
-    EXPECT_EQ(a.size(), 5);
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, 0);
-    }
+TEST(list, constructor_with_size) {
+  s21::list<int> a(5);
+  EXPECT_EQ(a.empty(), false);
+  EXPECT_EQ(a.size(), 5);
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, 0);
+  }
 };
 
-TEST(list, constructor_with_init_list){
-    s21::list<int> a({6, 5, 4, 3, 8, 5, 7, 3, 6, 7});
-    int buff[] = {6, 5, 4, 3, 8, 5, 7, 3, 6, 7};
-    EXPECT_EQ(a.size(), 10);
-    EXPECT_EQ(a.empty(), false);
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, constructor_with_init_list) {
+  s21::list<int> a({6, 5, 4, 3, 8, 5, 7, 3, 6, 7});
+  int buff[] = {6, 5, 4, 3, 8, 5, 7, 3, 6, 7};
+  EXPECT_EQ(a.size(), 10);
+  EXPECT_EQ(a.empty(), false);
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, constructor_with_empty_init_list){
-    s21::list<int> a({});
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_THROW(a.pop_front(), std::out_of_range);
-    EXPECT_THROW(a.pop_back(), std::out_of_range);
+TEST(list, constructor_with_empty_init_list) {
+  s21::list<int> a({});
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_THROW(a.pop_front(), std::out_of_range);
+  EXPECT_THROW(a.pop_back(), std::out_of_range);
 };
 
-TEST(list, copy_constructor_1){
-    s21::list<int> a({5, 4, 7, 6, 5});
-    s21::list<int> b(a);
-    EXPECT_EQ(a.max_size(), b.max_size());
-    int buff[] = {5, 4, 7, 6, 5};
-    EXPECT_EQ(a.empty(), b.empty());
-    EXPECT_EQ(a.size(), b.size());
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
+TEST(list, copy_constructor_1) {
+  s21::list<int> a({5, 4, 7, 6, 5});
+  s21::list<int> b(a);
+  EXPECT_EQ(a.max_size(), b.max_size());
+  int buff[] = {5, 4, 7, 6, 5};
+  EXPECT_EQ(a.empty(), b.empty());
+  EXPECT_EQ(a.size(), b.size());
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
 };
 
-TEST(list, copy_constructor_2){
-    s21::list<int> a({});
-    s21::list<int> b(a);
-    EXPECT_EQ(a.max_size(), b.max_size());
-    EXPECT_EQ(a.empty(), b.empty());
-    EXPECT_EQ(a.size(), b.size());
-    EXPECT_THROW(a.pop_front(), std::out_of_range);
-    EXPECT_THROW(a.pop_back(), std::out_of_range);
-    EXPECT_THROW(b.pop_front(), std::out_of_range);
-    EXPECT_THROW(b.pop_back(), std::out_of_range);
+TEST(list, copy_constructor_2) {
+  s21::list<int> a({});
+  s21::list<int> b(a);
+  EXPECT_EQ(a.max_size(), b.max_size());
+  EXPECT_EQ(a.empty(), b.empty());
+  EXPECT_EQ(a.size(), b.size());
+  EXPECT_THROW(a.pop_front(), std::out_of_range);
+  EXPECT_THROW(a.pop_back(), std::out_of_range);
+  EXPECT_THROW(b.pop_front(), std::out_of_range);
+  EXPECT_THROW(b.pop_back(), std::out_of_range);
 };
 
-TEST(list, copy_constructor_3){
-    s21::list<int> a;
-    s21::list<int> b(a);
-    EXPECT_EQ(a.empty(), b.empty());
-    EXPECT_EQ(a.size(), b.size());
-    EXPECT_THROW(a.pop_front(), std::out_of_range);
-    EXPECT_THROW(a.pop_back(), std::out_of_range);
-    EXPECT_THROW(b.pop_front(), std::out_of_range);
-    EXPECT_THROW(b.pop_back(), std::out_of_range);
+TEST(list, copy_constructor_3) {
+  s21::list<int> a;
+  s21::list<int> b(a);
+  EXPECT_EQ(a.empty(), b.empty());
+  EXPECT_EQ(a.size(), b.size());
+  EXPECT_THROW(a.pop_front(), std::out_of_range);
+  EXPECT_THROW(a.pop_back(), std::out_of_range);
+  EXPECT_THROW(b.pop_front(), std::out_of_range);
+  EXPECT_THROW(b.pop_back(), std::out_of_range);
 };
 
-TEST(list, move_constructor_1){
-    s21::list<int> a({5, 4, 7, 6, 5});
-    s21::list<int> b(std::move(a));
-    int buff[] = {5, 4, 7, 6, 5};
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), false);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 5);
-    int j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
+TEST(list, move_constructor_1) {
+  s21::list<int> a({5, 4, 7, 6, 5});
+  s21::list<int> b(std::move(a));
+  int buff[] = {5, 4, 7, 6, 5};
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), false);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 5);
+  int j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
 };
 
-TEST(list, move_constructor_2){
-    s21::list<int> a({});
-    s21::list<int> b(std::move(a));
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 0);
+TEST(list, move_constructor_2) {
+  s21::list<int> a({});
+  s21::list<int> b(std::move(a));
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 0);
 };
 
-TEST(list, move_constructor_3){
-    s21::list<int> a;
-    s21::list<int> b(std::move(a));
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 0);
+TEST(list, move_constructor_3) {
+  s21::list<int> a;
+  s21::list<int> b(std::move(a));
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 0);
 };
 
-TEST(list, move_assignment_operator_1){
-    s21::list<int> a({5, 4, 7, 6, 5});
-    s21::list<int> b({6, 4, 2});
-    b = std::move(a);
-    int buff[] = {5, 4, 7, 6, 5};
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), false);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 5);
-    int j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
+TEST(list, move_assignment_operator_1) {
+  s21::list<int> a({5, 4, 7, 6, 5});
+  s21::list<int> b({6, 4, 2});
+  b = std::move(a);
+  int buff[] = {5, 4, 7, 6, 5};
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), false);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 5);
+  int j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
 };
 
-TEST(list, move_assignment_operator_2){
-    s21::list<int> a({});
-    s21::list<int> b({});
-    b = std::move(a);
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 0);
+TEST(list, move_assignment_operator_2) {
+  s21::list<int> a({});
+  s21::list<int> b({});
+  b = std::move(a);
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 0);
 };
 
-TEST(list, move_assignment_operator_3){
-    s21::list<int> a;
-    s21::list<int> b;
-    b = std::move(a);
-    EXPECT_EQ(a.empty(), true);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(b.size(), 0);
+TEST(list, move_assignment_operator_3) {
+  s21::list<int> a;
+  s21::list<int> b;
+  b = std::move(a);
+  EXPECT_EQ(a.empty(), true);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(b.size(), 0);
 };
 
-TEST(list, start_end_sides_1){
-    s21::list<int> a({5, 4, 7, 6, 5});
-    EXPECT_EQ(a.front(), *a.begin());
-    EXPECT_EQ(a.back(), *a.end());
+TEST(list, start_end_sides_1) {
+  s21::list<int> a({5, 4, 7, 6, 5});
+  EXPECT_EQ(a.front(), *a.begin());
+  EXPECT_EQ(a.back(), *a.end());
 };
 
-TEST(list, start_and_sides_2){
-    s21::list<int> a;
-    EXPECT_THROW(a.front(), std::logic_error);
-    EXPECT_THROW(a.back(), std::logic_error);
-    EXPECT_EQ(a.begin(), a.end());
+TEST(list, start_and_sides_2) {
+  s21::list<int> a;
+  EXPECT_THROW(a.front(), std::logic_error);
+  EXPECT_THROW(a.back(), std::logic_error);
+  EXPECT_EQ(a.begin(), a.end());
 };
 
-TEST(list, start_and_sides_3){
-    s21::list<int> a({});
-    EXPECT_THROW(a.front(), std::logic_error);
-    EXPECT_THROW(a.back(), std::logic_error);
-    EXPECT_EQ(a.begin(), a.end());
+TEST(list, start_and_sides_3) {
+  s21::list<int> a({});
+  EXPECT_THROW(a.front(), std::logic_error);
+  EXPECT_THROW(a.back(), std::logic_error);
+  EXPECT_EQ(a.begin(), a.end());
 };
 
-TEST(list, clear_1){
-    s21::list<int> a({5, 4, 7, 6, 5});
-    a.clear();
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(a.empty(), true);
+TEST(list, clear_1) {
+  s21::list<int> a({5, 4, 7, 6, 5});
+  a.clear();
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(a.empty(), true);
 };
 
-TEST(list, clear_2){
-    s21::list<int> a({});
-    a.clear();
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(a.empty(), true);
+TEST(list, clear_2) {
+  s21::list<int> a({});
+  a.clear();
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(a.empty(), true);
 };
 
-TEST(list, clear_3){
-    s21::list<int> a;
-    a.clear();
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(a.empty(), true);
+TEST(list, clear_3) {
+  s21::list<int> a;
+  a.clear();
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(a.empty(), true);
 };
 
-TEST(list, insert_erase_1){
-    s21::list<double> a({2.2, -2.1, 3.4, 77.6, 0.1});
-    double buff[] = {3.3, 3.4, -41.1, 77.6, 0.1};
-    EXPECT_EQ(*a.insert(++a.begin(), 3.3), 3.3);
-    a.insert(--a.end(), -41.1);
-    EXPECT_THROW(a.insert(nullptr, 34), std::invalid_argument);
-    a.erase(a.begin());
-    a.erase(++a.begin());
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(buff[j++], *i);
-    }
-    EXPECT_THROW(a.erase(nullptr), std::out_of_range);
-    a.erase(a.end());
-    EXPECT_EQ(*a.end(), 77.6);
-    EXPECT_EQ(a.size(), 4);
+TEST(list, insert_erase_1) {
+  s21::list<double> a({2.2, -2.1, 3.4, 77.6, 0.1});
+  double buff[] = {3.3, 3.4, -41.1, 77.6, 0.1};
+  EXPECT_EQ(*a.insert(++a.begin(), 3.3), 3.3);
+  a.insert(--a.end(), -41.1);
+  EXPECT_THROW(a.insert(nullptr, 34), std::invalid_argument);
+  a.erase(a.begin());
+  a.erase(++a.begin());
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(buff[j++], *i);
+  }
+  EXPECT_THROW(a.erase(nullptr), std::out_of_range);
+  a.erase(a.end());
+  EXPECT_EQ(*a.end(), 77.6);
+  EXPECT_EQ(a.size(), 4);
 };
 
-TEST(list, push_pop){
-    s21::list<int> a;
-    a.push_back(12.2);
-    a.push_front(32);
-    EXPECT_EQ(*a.begin(), 32);
-    EXPECT_EQ(*(++a.begin()), 12);
-    EXPECT_EQ(a.size(), 2);
-    a.push_back(222);
-    EXPECT_EQ(a.back(), 222);
-    EXPECT_EQ(a.size(), 3);
-    a.pop_front();
-    EXPECT_EQ(a.front(), 12);
-    EXPECT_EQ(a.size(), 2);
-    a.pop_back();
-    EXPECT_EQ(a.back(), 12);
-    EXPECT_EQ(a.size(), 1);
-    a.pop_front();
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_THROW(a.pop_back(), std::out_of_range);
-    EXPECT_THROW(a.pop_front(), std::out_of_range);
+TEST(list, push_pop) {
+  s21::list<int> a;
+  a.push_back(12.2);
+  a.push_front(32);
+  EXPECT_EQ(*a.begin(), 32);
+  EXPECT_EQ(*(++a.begin()), 12);
+  EXPECT_EQ(a.size(), 2);
+  a.push_back(222);
+  EXPECT_EQ(a.back(), 222);
+  EXPECT_EQ(a.size(), 3);
+  a.pop_front();
+  EXPECT_EQ(a.front(), 12);
+  EXPECT_EQ(a.size(), 2);
+  a.pop_back();
+  EXPECT_EQ(a.back(), 12);
+  EXPECT_EQ(a.size(), 1);
+  a.pop_front();
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_THROW(a.pop_back(), std::out_of_range);
+  EXPECT_THROW(a.pop_front(), std::out_of_range);
 };
 
-TEST(list, swap){
-    s21::list<std::string> a({"Hello", "darkness", "my", "old", "friend"});
-    s21::list<std::string> b({"Coraline,", "Coraline,", "dimmi", "le", "tue", "verità"});
-    std::string buff1[] = {"Hello", "darkness", "my", "old", "friend"},
-    buff2[] = {"Coraline,", "Coraline,", "dimmi", "le", "tue", "verità"};
-    a.swap(b);
-    int j = 0;
-    EXPECT_EQ(a.size(), 6);
-    EXPECT_EQ(b.size(), 5);
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff2[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff2[j]);
-    j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff1[j++]);
-    }
-    EXPECT_EQ(*b.end(), buff1[j]);
+TEST(list, swap) {
+  s21::list<std::string> a({"Hello", "darkness", "my", "old", "friend"});
+  s21::list<std::string> b(
+      {"Coraline,", "Coraline,", "dimmi", "le", "tue", "verità"});
+  std::string buff1[] = {"Hello", "darkness", "my", "old", "friend"},
+              buff2[] = {"Coraline,", "Coraline,", "dimmi",
+                         "le",        "tue",       "verità"};
+  a.swap(b);
+  int j = 0;
+  EXPECT_EQ(a.size(), 6);
+  EXPECT_EQ(b.size(), 5);
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff2[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff2[j]);
+  j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff1[j++]);
+  }
+  EXPECT_EQ(*b.end(), buff1[j]);
 };
 
-TEST(list, empty_swap){
-    s21::list<int> a, b;
-    a.swap(b);
-    EXPECT_EQ(a.size(), b.size());
-    EXPECT_EQ(a.empty(), b.empty());
+TEST(list, empty_swap) {
+  s21::list<int> a, b;
+  a.swap(b);
+  EXPECT_EQ(a.size(), b.size());
+  EXPECT_EQ(a.empty(), b.empty());
 };
 
-TEST(list, merge){
-    s21::list<int> a;
-    a.merge(a);
-    EXPECT_EQ(a.size(), 0);
-    EXPECT_EQ(a.empty(), true);
+TEST(list, merge) {
+  s21::list<int> a;
+  a.merge(a);
+  EXPECT_EQ(a.size(), 0);
+  EXPECT_EQ(a.empty(), true);
 };
 
-TEST(list, sort_merge_1){
-    s21::list<double> a({23.2, 1233.1, 654.4, -12, -0.2, 13, 6.6}),
-    b({-12, 3.1, -0, 121., 12, 654.4, 3});
-    double buff_a[] = {-12, -0.2, 6.6, 13, 23.2, 654.4, 1233.1}, 
-    buff_b[] = {-12, 0, 3, 3.1, 12, 121, 654.4}, 
-    buff_res[] = {-12, -12, -0.2, 0, 3, 3.1, 6.6, 12, 13, 23.2, 121, 654.4, 654.4, 1233.1};
-    a.sort(), b.sort();
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_a[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_a[j]);
-    j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff_b[j++]);
-    }
-    EXPECT_EQ(*b.end(), buff_b[j]);
-    a.merge(b);
-    j = 0;
-    EXPECT_EQ(a.size(), 14);
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_res[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_res[j]);
+TEST(list, sort_merge_1) {
+  s21::list<double> a({23.2, 1233.1, 654.4, -12, -0.2, 13, 6.6}),
+      b({-12, 3.1, -0, 121., 12, 654.4, 3});
+  double buff_a[] = {-12, -0.2, 6.6, 13, 23.2, 654.4, 1233.1},
+         buff_b[] = {-12, 0, 3, 3.1, 12, 121, 654.4},
+         buff_res[] = {-12, -12, -0.2, 0,   3,     3.1,   6.6,
+                       12,  13,  23.2, 121, 654.4, 654.4, 1233.1};
+  a.sort(), b.sort();
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_a[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_a[j]);
+  j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff_b[j++]);
+  }
+  EXPECT_EQ(*b.end(), buff_b[j]);
+  a.merge(b);
+  j = 0;
+  EXPECT_EQ(a.size(), 14);
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_res[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_res[j]);
 };
 
-TEST(list, sort_merge_2){
-    s21::list<std::string> a({"cucumber", "a", "b"}), b({"m", "d", "hello"});
-    std::string buff_a[] = {"a", "b", "cucumber"}, buff_b[] = {"d", "hello", "m"},
-    buff_merg[] = {"a", "b", "cucumber", "d", "hello", "m"};
-    a.sort(), b.sort();
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_a[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_a[j]);
-    j = 0;
-    for(auto i = b.begin(); i != b.end(); ++i){
-        EXPECT_EQ(*i, buff_b[j++]);
-    }
-    EXPECT_EQ(*b.end(), buff_b[j]);
-    a.merge(b);
-    j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_merg[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_merg[j]);
+TEST(list, sort_merge_2) {
+  s21::list<std::string> a({"cucumber", "a", "b"}), b({"m", "d", "hello"});
+  std::string buff_a[] = {"a", "b", "cucumber"}, buff_b[] = {"d", "hello", "m"},
+              buff_merg[] = {"a", "b", "cucumber", "d", "hello", "m"};
+  a.sort(), b.sort();
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_a[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_a[j]);
+  j = 0;
+  for (auto i = b.begin(); i != b.end(); ++i) {
+    EXPECT_EQ(*i, buff_b[j++]);
+  }
+  EXPECT_EQ(*b.end(), buff_b[j]);
+  a.merge(b);
+  j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_merg[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_merg[j]);
 };
 
-TEST(list, splice_1){
-    s21::list<double> a({3.3, 12., 7., -3.2, -0.3}), b({90, 60, 43.2, 56., -23.});
-    double buff_res[] = {90, 60, 43.2, 56., -23., 3.3, 12., 7., -3.2, -0.3};
-    a.splice(a.begin(), b);
-    EXPECT_EQ(b.size(), 0);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 10);
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_res[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_res[j]);
+TEST(list, splice_1) {
+  s21::list<double> a({3.3, 12., 7., -3.2, -0.3}), b({90, 60, 43.2, 56., -23.});
+  double buff_res[] = {90, 60, 43.2, 56., -23., 3.3, 12., 7., -3.2, -0.3};
+  a.splice(a.begin(), b);
+  EXPECT_EQ(b.size(), 0);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 10);
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_res[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_res[j]);
 };
 
-TEST(list, splice_2){
-    s21::list<double> a({3.3, 12., 7., -3.2, -0.3}), b({90, 60, 43.2, 56., -23.});
-    double buff_res[] = {90, 60, 43.2, 56., -23., 3.3, 12., 7., -3.2, -0.3};
-    a.splice(a.begin(), b);
-    EXPECT_EQ(b.size(), 0);
-    EXPECT_EQ(b.empty(), true);
-    EXPECT_EQ(a.size(), 10);
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_res[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_res[j]);
+TEST(list, splice_2) {
+  s21::list<double> a({3.3, 12., 7., -3.2, -0.3}), b({90, 60, 43.2, 56., -23.});
+  double buff_res[] = {90, 60, 43.2, 56., -23., 3.3, 12., 7., -3.2, -0.3};
+  a.splice(a.begin(), b);
+  EXPECT_EQ(b.size(), 0);
+  EXPECT_EQ(b.empty(), true);
+  EXPECT_EQ(a.size(), 10);
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_res[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_res[j]);
 };
 
-TEST(list, splice_3){
-    s21::list<int> a({1, 2}), b({3, 4});
-    EXPECT_THROW(a.splice(b.begin(), b), std::invalid_argument);
-    EXPECT_THROW(a.splice(b.end(), b), std::invalid_argument);
+TEST(list, splice_3) {
+  s21::list<int> a({1, 2}), b({3, 4});
+  EXPECT_THROW(a.splice(b.begin(), b), std::invalid_argument);
+  EXPECT_THROW(a.splice(b.end(), b), std::invalid_argument);
 };
 
-TEST(list, reverse){
-    s21::list<char> a({'a', 'b', 'c', 's', 'a', 'e', 'w'});
-    char buff[] = {'w', 'e', 'a', 's', 'c', 'b', 'a'};
-    a.reverse();
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, reverse) {
+  s21::list<char> a({'a', 'b', 'c', 's', 'a', 'e', 'w'});
+  char buff[] = {'w', 'e', 'a', 's', 'c', 'b', 'a'};
+  a.reverse();
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, unique){
-    s21::list<int> a({2, 3, 2, 3, 5, 6, 7, 123, 342, 6, 6, 5, 5, 85667});
-    int buff_1[] = {2, 3, 2, 3, 5, 6, 7, 123, 342, 6, 5, 85667},
-    buff_2[] = {2, 3, 5, 6, 7, 123, 342, 85667};
-    a.unique();
-    EXPECT_EQ(a.size(), 12);
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_1[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_1[j]);
-    j = 0;
-    a.sort();
-    a.unique();
-    EXPECT_EQ(a.size(), 8);
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff_2[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff_2[j]);
+TEST(list, unique) {
+  s21::list<int> a({2, 3, 2, 3, 5, 6, 7, 123, 342, 6, 6, 5, 5, 85667});
+  int buff_1[] = {2, 3, 2, 3, 5, 6, 7, 123, 342, 6, 5, 85667},
+      buff_2[] = {2, 3, 5, 6, 7, 123, 342, 85667};
+  a.unique();
+  EXPECT_EQ(a.size(), 12);
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_1[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_1[j]);
+  j = 0;
+  a.sort();
+  a.unique();
+  EXPECT_EQ(a.size(), 8);
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff_2[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff_2[j]);
 };
 
-TEST(list, insert_many_back_1){
-    s21::list<int> a;
-    a.insert_many_back(2, 3, 5, 1, 2, 3, 678);
-    int buff[] = {2, 3, 5, 1, 2, 3, 678};
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_back_1) {
+  s21::list<int> a;
+  a.insert_many_back(2, 3, 5, 1, 2, 3, 678);
+  int buff[] = {2, 3, 5, 1, 2, 3, 678};
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_back_2){
-    s21::list<double> a({3.2, 232.2, -24., 90.2, -574.4});
-    a.insert_many_back(-0.2, -0.98, 887.2, 2.2, 56.);
-    double buff[] = {3.2, 232.2, -24., 90.2, -574.4, -0.2, -0.98, 887.2, 2.2, 56.};
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_back_2) {
+  s21::list<double> a({3.2, 232.2, -24., 90.2, -574.4});
+  a.insert_many_back(-0.2, -0.98, 887.2, 2.2, 56.);
+  double buff[] = {3.2,  232.2, -24.,  90.2, -574.4,
+                   -0.2, -0.98, 887.2, 2.2,  56.};
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_front_1){
-    s21::list<int> a;
-    a.insert_many_front(2, 3, 5, 1, 2, 3, 678);
-    int buff[] = {678, 3, 2, 1, 5, 3, 2};
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_front_1) {
+  s21::list<int> a;
+  a.insert_many_front(2, 3, 5, 1, 2, 3, 678);
+  int buff[] = {678, 3, 2, 1, 5, 3, 2};
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_front_2){
-    s21::list<double> a({3.2, 232.2, -24., 90.2, -574.4});
-    a.insert_many_front(-0.2, -0.98, 887.2, 2.2, 56.);
-    double buff[] = {56., 2.2, 887.2, -0.98, -0.2, 3.2, 232.2, -24., 90.2, -574.4};
-    int j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_front_2) {
+  s21::list<double> a({3.2, 232.2, -24., 90.2, -574.4});
+  a.insert_many_front(-0.2, -0.98, 887.2, 2.2, 56.);
+  double buff[] = {56., 2.2,   887.2, -0.98, -0.2,
+                   3.2, 232.2, -24.,  90.2,  -574.4};
+  int j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_1){
-    s21::list<int> a;
-    EXPECT_THROW(a.insert_many(nullptr, 1, 2, 3), std::invalid_argument);
+TEST(list, insert_many_1) {
+  s21::list<int> a;
+  EXPECT_THROW(a.insert_many(nullptr, 1, 2, 3), std::invalid_argument);
 };
 
-TEST(list, insert_many_2){
-    s21::list<int> a({1, 2, 3});
-    a.insert_many(a.begin(), 23, 435, 45, 23, 65);
-    int buff[] = {23, 435, 45, 23, 65, 1, 2, 3}, j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_2) {
+  s21::list<int> a({1, 2, 3});
+  a.insert_many(a.begin(), 23, 435, 45, 23, 65);
+  int buff[] = {23, 435, 45, 23, 65, 1, 2, 3}, j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_3){
-    s21::list<int> a({1, 2, 3});
-    auto pos = ++a.begin();
-    auto res = a.insert_many(pos, 23, 435, 45, 23, 65);
-    int buff[] = {1, 23, 435, 45, 23, 65, 2, 3}, j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
-    j = 1;
-    for(auto i = res; i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_3) {
+  s21::list<int> a({1, 2, 3});
+  auto pos = ++a.begin();
+  auto res = a.insert_many(pos, 23, 435, 45, 23, 65);
+  int buff[] = {1, 23, 435, 45, 23, 65, 2, 3}, j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
+  j = 1;
+  for (auto i = res; i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
 
-TEST(list, insert_many_4){
-    s21::list<int> a({1, 2, 3});
-    auto res = a.insert_many(a.end(), 23, 435, 45, 23, 65);
-    int buff[] = {1, 2, 23, 435, 45, 23, 65, 3}, j = 0;
-    for(auto i = a.begin(); i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
-    j = 2;
-    for(auto i = res; i != a.end(); ++i){
-        EXPECT_EQ(*i, buff[j++]);
-    }
-    EXPECT_EQ(*a.end(), buff[j]);
+TEST(list, insert_many_4) {
+  s21::list<int> a({1, 2, 3});
+  auto res = a.insert_many(a.end(), 23, 435, 45, 23, 65);
+  int buff[] = {1, 2, 23, 435, 45, 23, 65, 3}, j = 0;
+  for (auto i = a.begin(); i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
+  j = 2;
+  for (auto i = res; i != a.end(); ++i) {
+    EXPECT_EQ(*i, buff[j++]);
+  }
+  EXPECT_EQ(*a.end(), buff[j]);
 };
-
 
 TEST(ListTest, push_back) {
   std::list<int> a = {1, 2, 3};
@@ -621,10 +625,9 @@ TEST(ListTest, splice) {
 
   ASSERT_EQ(a.size(), a1.size());
   auto j = a.begin();
-  for(auto i = a1.begin(); i != a1.end_iter(); ++i, ++j){
+  for (auto i = a1.begin(); i != a1.end_iter(); ++i, ++j) {
     EXPECT_EQ(*i, *j);
   }
-  
 }
 
 TEST(ListTest, InsertMany) {
@@ -818,7 +821,7 @@ TEST(ListTest, splice1) {
 
   for (auto it1 = a.begin(), it2 = total.begin(); it1 != a.end();
        ++it1, ++it2) {
-        EXPECT_EQ(*it1, *it2);
+    EXPECT_EQ(*it1, *it2);
   }
 }
 
@@ -831,7 +834,7 @@ TEST(ListTest, splice2) {
 
   for (auto it1 = a.begin(), it2 = total.begin(); it1 != a.end();
        ++it1, ++it2) {
-        EXPECT_EQ(*it1, *it2);
+    EXPECT_EQ(*it1, *it2);
   }
 }
 

@@ -23,7 +23,7 @@ class map : public Common_s_m<std::pair<Key, T>> {
   size_type size_ = 0;
 
  public:
-  map() : tree(), size_(0){};
+  map() : tree(), size_(0) {};
   map(std::initializer_list<value_type> const &items) {
     for (const auto &item : items) {
       tree.insert_node(item);
