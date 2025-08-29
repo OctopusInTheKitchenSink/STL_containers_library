@@ -78,8 +78,8 @@
 
 ## Установка
 Для корректной работы вам понадобятся:
-- Компилятор g++ с поддержкой C++20
-- Библиотека Google Test
+- Компилятор ```g++``` с поддержкой ```C++20```
+- Библиотека ```Google Test```
 
 ```
 git clone https://github.com/OctopusInTheKitchenSink/STL_containers_library.git
